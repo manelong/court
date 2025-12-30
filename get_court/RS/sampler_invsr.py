@@ -237,6 +237,8 @@ class InvSamplerSR(BaseSampler):
 
         image_bgr = util_image.im_save(image, dtype_in='float32')
         
+        # 上下左右翻转
+        image_bgr = cv2.flip(image_bgr, -1)
         return image_bgr
 
 def get_torch_dtype(torch_dtype: str):

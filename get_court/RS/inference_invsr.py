@@ -25,10 +25,10 @@ def get_parser(**parser_kwargs):
     parser.add_argument("-t", "--timesteps", type=int, nargs="+", help="The inversed timesteps")
     parser.add_argument("-n", "--num_steps", type=int, default=1, help="Number of inference steps")
     parser.add_argument(
-        "--cfg_path", type=str, default="./get_court/RS/configs/sample-sd-turbo.yaml", help="Configuration path.",
+        "--cfg_path", type=str, default="get_court/RS/configs/sample-sd-turbo.yaml", help="Configuration path.",
     )
     parser.add_argument(
-        "--sd_path", type=str, default="", help="Path for Stable Diffusion Model",
+        "--sd_path", type=str, default="get_court/RS/stabilityai/sd-turbo", help="Path for Stable Diffusion Model",
     )
     parser.add_argument(
         "--started_ckpt_path", type=str, default="get_court/RS/weights/noise_predictor_sd_turbo_v5.pth", help="Checkpoint path for noise predictor"
@@ -71,7 +71,7 @@ def get_configs(args):
     print(f'Setting timesteps for inference: {configs.timesteps}')
 
     # path to save Stable Diffusion
-    sd_path = args.sd_path if args.sd_path else "./RS/weights"
+    sd_path = args.sd_path if args.sd_path else "RS/stabilityai/sd-turbo"
     util_common.mkdir(sd_path, delete=False, parents=True)
     configs.sd_pipe.params.cache_dir = sd_path
 

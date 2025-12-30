@@ -30,7 +30,7 @@ sd_pipe:
   target: diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion.StableDiffusionPipeline
   enable_grad_checkpoint: True
   params:
-    pretrained_model_name_or_path: stabilityai/sd-turbo
+    pretrained_model_name_or_path: get_court/RS/stabilityai/sd-turbo
     cache_dir: /mnt/sfs-common/zsyue/modelbase/stable-diffusion/sd-turbo
     use_safetensors: True
     torch_dtype: torch.float16

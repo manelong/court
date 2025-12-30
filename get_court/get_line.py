@@ -64,8 +64,7 @@ class LineSegmentor:
                     _, binary_mask = cv2.threshold(mask_uint8, 127, 255, cv2.THRESH_BINARY)
                     combined_mask = cv2.bitwise_or(combined_mask, binary_mask)
         
-        # combined_mask 上下左右翻转
-        self.output_mask = cv2.flip(combined_mask, -1)
+        self.output_mask = combined_mask
         return self.output_mask
 
     def vis(self, input_path, output_path):
@@ -98,7 +97,7 @@ class LineSegmentor:
 if __name__ == "__main__":
     # 初始化网球场地分割模型
     segmentor = LineSegmentor(
-        model_path="/data/lijun/model/ultralytics/runs/segment/train11/weights/best.pt",
+        model_path="/data/lijun/model/court/line_12_30.pt",
         conf=0.35
     )
     
@@ -110,8 +109,8 @@ if __name__ == "__main__":
     sampler = inference_invsr.InvSamplerSR(configs)
     
     # 所有待处理图像所在文件夹
-    img_fold = '/data/lijun/model/court/imgs_12_26/tmp'
-    output_fold = '/data/lijun/model/court/imgs_12_26/tmp_out'
+    img_fold = '/data/lijun/model/court/tmp'
+    output_fold = '/data/lijun/model/court/tmp_out'
     
     # 遍历文件夹中的所有图片
     all_imgs = os.listdir(img_fold)
@@ -122,14 +121,10 @@ if __name__ == "__main__":
         
         # 对图像进行超分
         sr_img_bgr = sampler.inference(img_path, bs=args.bs)
-        
-        # 对超分后的图进行保存
-        cv2.imwrite("/data/lijun/model/court/77322_221_1761221774503_ball_line_sr.png", sr_img_bgr)
 
         # 对超分后的图像进行分割
         segmentor.process_per_image(sr_img_bgr)
         segmentor.vis(img_path, output_fold)
 
-        pass
     
 
