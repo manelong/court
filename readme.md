@@ -34,3 +34,17 @@ huggingface-cli download stabilityai/sd-turbo --local-dir stabilityai/sd-turbo
 ```bash
 pip install ultralytics
 ```
+
+# 代码使用说明
+## 推理代码
+```bash
+python get_court/get_line.py
+```
+修改100、112、113行的指定路径
+
+## 训练代码
+```bash
+python train/train_yolo.py
+```
+train_yolo.py内修改对应的模型规模和训练超参数设置
+train.yaml内设置对应的训练数据集路径
